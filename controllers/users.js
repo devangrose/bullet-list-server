@@ -25,14 +25,23 @@ router.post('/daily',function(req,res){
     });
 });
 
-router.put('/daily/:id', function(req, res) {
-  console.log(req.body);
-  db.Daily.findByIdAndUpdate(req.params.id, {$set:{name:req.body.name, completed:JSON.parse(req.body.completed),color:req.body.color}}, function(err, result){
+router.post('/daily/:id', function(req, res) {
+  console.log('DATA', req.body.data);
+  db.Daily.findByIdAndUpdate(req.body.data._id,
+    {
+      $set: {
+        name: req.body.data.name,
+        completed: req.body.data.completed,
+        color: req.body.data.color
+      }
+    }, {
+      new: true // Refer to: https://stackoverflow.com/questions/30419575/mongoose-findbyidandupdate-not-returning-correct-model
+    }, function(err, result){
         if(err){
-            console.log(err);
-            res.status(400).send('unable to update');
+          console.log(err);
+          res.status(400).send('unable to update');
         } else {
-          console.log(result);
+          console.log('RESULT', result);
           res.send(result);
         }
     });
