@@ -49,7 +49,7 @@ app.use('/users', expressJWT({
   }), require('./controllers/users'));
 
 */
-app.use('/users',  require('./controllers/users'));
+app.use('/',  require('./controllers/users'));
 
 app.get('*', function(req, res, next) {
 	res.send({ message: 'Unknown Route' });

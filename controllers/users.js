@@ -17,12 +17,7 @@ router.get('/daily/:id',function(req,res){
 });
 
 router.post('/daily',function(req,res){
-  db.Daily.create({ 
-    userId : req.body.userId,
-    name: req.body.name, 
-    completed: JSON.parse(req.body.completed), 
-    color:req.body.color, 
-    userId: req.body.userId})
+  db.Daily.create(req.body.data)
     .then(createdDaily => { res.send(createdDaily);})
     .catch(error => {
       console.log(error);
